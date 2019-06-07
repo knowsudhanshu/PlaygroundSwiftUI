@@ -10,13 +10,13 @@ struct ListItemModel: Identifiable {
 }
 
 struct MyContentView: View {
-    var listItems: [ListItemModel] = [
+    @State var listItems: [ListItemModel] = [
         ListItemModel(id: 0, name: "item 1"),
-        ListItemModel(id: 0, name: "item 2"),
-        ListItemModel(id: 0, name: "item 3"),
-        ListItemModel(id: 0, name: "item 4"),
-        ListItemModel(id: 0, name: "item 5"),
-        ListItemModel(id: 0, name: "item 6")
+        ListItemModel(id: 1, name: "item 2"),
+        ListItemModel(id: 2, name: "item 3"),
+        ListItemModel(id: 3, name: "item 4"),
+        ListItemModel(id: 4, name: "item 5"),
+        ListItemModel(id: 5, name: "item 6")
     ]
     
     var body: some View {
@@ -28,6 +28,13 @@ struct MyContentView: View {
                 }
             }
                 .navigationBarTitle(Text("Sudhanshu"))
+                .navigationBarItems(trailing: Button(action: {
+                    let count = self.listItems.count + 1
+                    let item = ListItemModel(id: count, name: "item \(count)")
+                    self.listItems.append(item)
+                }, label: {
+                    Text("Add")
+                }))
         }
     }
 }
@@ -40,6 +47,7 @@ struct ItemRow: View {
             Image(uiImage: UIImage(named: "mypic.png")!)
                 .resizable()
                 .aspectRatio(1/1, contentMode: .fit)
+                .clipShape(Circle())
             Text(item.name)
             Spacer()
         }
